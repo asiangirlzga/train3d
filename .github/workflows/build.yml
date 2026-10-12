@@ -1,0 +1,75 @@
+name: Build APK
+
+on:
+  push:
+    branches: [main, master]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: android-actions/setup-android@v3
+
+      - name: Install SDK packages
+        run: sdkmanager "platforms;android-34" "build-tools;34.0.0"
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      # Uses your own signing key if you add the secrets below, otherwise creates a throw-away one.
+      # Secrets (optional): KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_ALIAS, KEY_PASSWORD
+      - name: Prepare signing key
+        env:
+          KS_B64: ${{ secrets.KEYSTORE_BASE64 }}
+          KS_PASS: ${{ secrets.KEYSTORE_PASSWORD }}
+          KS_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KS_KEYPASS: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          KS="$RUNNER_TEMP/release.jks"
+          if [ -n "$KS_B64" ]; then
+            echo "$KS_B64" | base64 -d > "$KS"
+            PASS="$KS_PASS"; ALIAS="$KS_ALIAS"; KEYPASS="$KS_KEYPASS"
+          else
+            PASS="trainrush-ci"; ALIAS="trainrush"; KEYPASS="trainrush-ci"
+            keytool -genkeypair -v -keystore "$KS" -storepass "$PASS" -keypass "$KEYPASS" \
+              -alias "$ALIAS" -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Train Rush Lite"
+          fi
+          {
+            echo "KEYSTORE_PATH=$KS"
+            echo "KEYSTORE_PASSWORD=$PASS"
+            echo "KEY_ALIAS=$ALIAS"
+            echo "KEY_PASSWORD=$KEYPASS"
+          } >> "$GITHUB_ENV"
+
+      - name: Build release APK
+        run: >
+          gradle --no-daemon assembleRelease
+          -PthemeUrl=https://raw.githubusercontent.com/${{ github.repository }}/${{ github.event.repository.default_branch }}/themes/themes.json
+
+      - name: Name the APK
+        run: cp app/build/outputs/apk/release/app-release.apk TrainRushLite.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TrainRushLite-apk
+          path: TrainRushLite.apk
+
+      - name: Publish release (tags only)
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: TrainRushLite.apk
