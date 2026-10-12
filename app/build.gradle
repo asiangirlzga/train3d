@@ -1,0 +1,59 @@
+plugins {
+    id 'com.android.application'
+}
+
+// Optional release signing, driven by environment variables (set by the GitHub workflow).
+def ksPath = System.getenv('KEYSTORE_PATH')
+
+android {
+    namespace 'com.trainrush.lite'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'com.trainrush.lite'
+        minSdk 21          // Android TV 5.0 and newer
+        targetSdk 34
+        versionCode 1
+        versionName '1.0'
+        buildConfigField 'String', 'THEME_URL', "\"${project.findProperty('themeUrl')}\""
+    }
+
+    signingConfigs {
+        release {
+            if (ksPath) {
+                storeFile file(ksPath)
+                storePassword System.getenv('KEYSTORE_PASSWORD')
+                keyAlias System.getenv('KEY_ALIAS')
+                keyPassword System.getenv('KEY_PASSWORD')
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // Without a keystore the APK is signed with the debug key so it still installs.
+            signingConfig ksPath ? signingConfigs.release : signingConfigs.debug
+        }
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+}
+
+// No runtime libraries on purpose: smaller APK, less RAM, nothing to download at install.
+dependencies {
+}

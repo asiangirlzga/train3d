@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "themes": [
+    {
+      "id": "sunny", "name": "Sunny Countryside",
+      "skyTop": "#4FA9F5", "skyBottom": "#CDEBFF",
+      "ground": "#5DAA46", "ballast": "#8C8579", "sleeper": "#5B3F2A", "rail": "#C9CED6",
+      "train": "#D63B3B", "accent": "#FFD23F", "car": "#3B6FD6", "enemy": "#2B2F3A",
+      "barrier": "#E74C3C", "rock": "#7A7468", "coin": "#FFD700",
+      "scenery": "pine", "sceneryA": "#2F7D32", "sceneryB": "#5B3A1E",
+      "fogStart": 35, "fogEnd": 100, "ambient": 0.55, "bpm": 128, "root": 57
+    },
+    {
+      "id": "night", "name": "Midnight Express",
+      "skyTop": "#050A24", "skyBottom": "#24346E",
+      "ground": "#1B3326", "ballast": "#4A4A55", "sleeper": "#2B1D14", "rail": "#9AA3B5",
+      "train": "#C0392B", "accent": "#F1C40F", "car": "#2E5FA8", "enemy": "#6B2FA0",
+      "barrier": "#FF5A36", "rock": "#55556B", "coin": "#FFD700",
+      "scenery": "pine", "sceneryA": "#14452A", "sceneryB": "#3A2A1C",
+      "fogStart": 25, "fogEnd": 90, "ambient": 0.42, "bpm": 104, "root": 52
+    },
+    {
+      "id": "desert", "name": "Desert Sunset",
+      "skyTop": "#7A3E8E", "skyBottom": "#FFB36B",
+      "ground": "#D9A55B", "ballast": "#A8896A", "sleeper": "#5A3A24", "rail": "#D6C6AE",
+      "train": "#2F8F83", "accent": "#FFE066", "car": "#C8553D", "enemy": "#3D2B1F",
+      "barrier": "#F2542D", "rock": "#9C6B4A", "coin": "#FFD700",
+      "scenery": "cactus", "sceneryA": "#4E8F3A", "sceneryB": "#B5683F",
+      "fogStart": 40, "fogEnd": 105, "ambient": 0.6, "bpm": 112, "root": 50
+    },
+    {
+      "id": "snow", "name": "Snowy Alps",
+      "skyTop": "#7FA6D6", "skyBottom": "#EAF2FB",
+      "ground": "#F4F8FC", "ballast": "#B8C2CE", "sleeper": "#5B4636", "rail": "#8E99A8",
+      "train": "#C0392B", "accent": "#FFFFFF", "car": "#2C6EA6", "enemy": "#2B2F3A",
+      "barrier": "#E74C3C", "rock": "#8A94A3", "coin": "#FFD700",
+      "scenery": "pine", "sceneryA": "#E6EEF7", "sceneryB": "#4A3A2E",
+      "fogStart": 30, "fogEnd": 95, "ambient": 0.62, "bpm": 100, "root": 55
+    },
+    {
+      "id": "neon", "name": "Neon City",
+      "skyTop": "#0B0221", "skyBottom": "#5B1A8B",
+      "ground": "#15112B", "ballast": "#2A2545", "sleeper": "#3B2F5C", "rail": "#7DF9FF",
+      "train": "#FF2E93", "accent": "#7DF9FF", "car": "#6C5CE7", "enemy": "#1B1B3A",
+      "barrier": "#FF9F1C", "rock": "#4B4575", "coin": "#FFE94D",
+      "scenery": "city", "sceneryA": "#2B2060", "sceneryB": "#431A6B",
+      "fogStart": 30, "fogEnd": 95, "ambient": 0.5, "bpm": 140, "root": 53
+    },
+    {
+      "id": "autumn", "name": "Autumn Forest",
+      "skyTop": "#6C8FB5", "skyBottom": "#F3D9B1",
+      "ground": "#7A5B2E", "ballast": "#807565", "sleeper": "#4A3220", "rail": "#BFC4CA",
+      "train": "#3C7A4A", "accent": "#F5C542", "car": "#B5522B", "enemy": "#2E2A26",
+      "barrier": "#D9481C", "rock": "#6F675C", "coin": "#FFD700",
+      "scenery": "round", "sceneryA": "#D9732B", "sceneryB": "#4A2F1B",
+      "fogStart": 35, "fogEnd": 100, "ambient": 0.55, "bpm": 96, "root": 55
+    }
+  ]
+}
