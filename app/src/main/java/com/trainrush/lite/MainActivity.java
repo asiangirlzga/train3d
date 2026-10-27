@@ -19,6 +19,7 @@ public class MainActivity extends Activity implements Game.Host, ThemeManager.Li
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PadClient.attach(this);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         SharedPreferences prefs = getSharedPreferences("trainrush", MODE_PRIVATE);
